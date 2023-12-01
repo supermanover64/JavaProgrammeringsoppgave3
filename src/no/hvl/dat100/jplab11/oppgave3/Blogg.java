@@ -6,67 +6,178 @@ import no.hvl.dat100.jplab11.oppgave1.*;
 public class Blogg {
 
 	// TODO: objektvariable 
+	
+	private Innlegg[] innleggtabell;
+	private int nesteledig;
+	
+	
+	
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		this.innleggtabell = new Innlegg[20];
+		this.nesteledig = 0;
+		
+		//throw new UnsupportedOperationException(TODO.constructor("Blogg"));
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		this.innleggtabell = new Innlegg[lengde];
+		this.nesteledig = 0;
+		
+		//throw new UnsupportedOperationException(TODO.constructor("Blogg"));
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return this.nesteledig;
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		return this.innleggtabell;
+		//throw new UnsupportedOperationException(TODO.method());
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		
+		int index = -1;
+		
+		for(int i = 0; i < this.getAntall(); ++i) {
+			if(innlegg.erLik(this.innleggtabell[i])){
+				index = i;
+				break;
+			}
+				
+		}
+		
+		return index;
+		
+		
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		return (finnInnlegg(innlegg) != -1);
+		
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		if(this.nesteledig < this.innleggtabell.length)
+			return true;
+		else
+			return false;
+		
+		//throw new UnsupportedOperationException(TODO.method());
 
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		if(this.finnes(innlegg) == false && this.ledigPlass()){
+			
+			this.innleggtabell[this.nesteledig++] = innlegg;
+			
+			return true;
+		}else {
+			return false;
+		}
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String thestring = "";
+		
+		thestring += this.getAntall() + "\n";
+		
+		for(int i = 0; i < this.nesteledig; ++i) {
+			thestring += this.innleggtabell[i].toString();
+		}
+		
+		
+		
+		return thestring;
+		
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 
 	// valgfrie oppgaver nedenfor
 	
 	public void utvid() {
-		throw new UnsupportedOperationException(TODO.method());
+		Innlegg[] utvidatabell = new Innlegg[this.innleggtabell.length*2];
+		
+		for(int i = 0; i < this.nesteledig; ++i) {
+			utvidatabell[i] = this.innleggtabell[i];
+		}
+		
+		this.innleggtabell = utvidatabell;
+		
+		
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		if(this.finnes(innlegg) == false){
+			if(!this.ledigPlass()) {
+				this.utvid();
+			}
+			
+			this.innleggtabell[this.nesteledig++] = innlegg;
+			
+			return true;
+			
+		}else {
+			return false;
+		}
+		
+		//throw new UnsupportedOperationException(TODO.method());
 		
 	}
 	
 	public boolean slett(Innlegg innlegg) {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		int index = this.finnInnlegg(innlegg);
+		
+		if(index != -1){
+			int i;
+			for(i = index; i < this.nesteledig-1; ++i)
+			{
+				this.innleggtabell[i] = this.innleggtabell[i+1];
+			}
+			
+			--nesteledig;
+			
+			this.innleggtabell[nesteledig] = null;
+			
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+		//throw new UnsupportedOperationException(TODO.method());
 	}
 	
 	public int[] search(String keyword) {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		int idtabell[] = new int[nesteledig];
+		
+		for(int i = 0; i < nesteledig; ++i) {
+			idtabell[i] = this.innleggtabell[i].getId();
+		}
+		
+		return idtabell;
+		
+		//throw new UnsupportedOperationException(TODO.method());
 
 	}
 }
