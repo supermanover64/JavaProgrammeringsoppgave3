@@ -18,7 +18,16 @@ public class HtmlBlogg extends Blogg {
 	
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String thestring = "<html>\n\t<head>\n\t\t<title>DAT100 Blogg</title>\n\t</head>\n\t<body>\n";
+		
+		for(int i = 0; i < this.getAntall(); ++i) {
+			thestring += this.innleggtabell[i].toHTML();
+		}
+		
+		thestring += "\n\t</body>\n</html>";
+		
+		return thestring;
+		//throw new UnsupportedOperationException(TODO.method());
 		
 	}
 }

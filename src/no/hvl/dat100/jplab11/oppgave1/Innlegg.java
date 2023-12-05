@@ -116,7 +116,16 @@ public abstract class Innlegg {
 	// Metoden nedenfor er kun for valgfri oppgave 6
 	public String toHTML() {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		String thestring = "";
+		
+		
+		thestring += "\n\t\t";
+		thestring += "<h2>" + getBruker() + "@" + getDato() + " [" + getLikes() + "]<h2>";
+		thestring += "\n\t\t<hr>";
+		
+		return thestring;
+		
+		//throw new UnsupportedOperationException(TODO.method());
 				
 	}
 }

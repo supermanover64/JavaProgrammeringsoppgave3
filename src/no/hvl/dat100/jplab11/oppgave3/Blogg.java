@@ -7,7 +7,7 @@ public class Blogg {
 
 	// TODO: objektvariable 
 	
-	private Innlegg[] innleggtabell;
+	protected Innlegg[] innleggtabell;
 	private int nesteledig;
 	
 	
@@ -41,17 +41,15 @@ public class Blogg {
 	
 	public int finnInnlegg(Innlegg innlegg) {
 		
-		int index = -1;
 		
 		for(int i = 0; i < this.getAntall(); ++i) {
 			if(innlegg.erLik(this.innleggtabell[i])){
-				index = i;
-				break;
+				return i;
 			}
 				
 		}
 		
-		return index;
+		return -1;
 		
 		
 		
@@ -68,10 +66,7 @@ public class Blogg {
 
 	public boolean ledigPlass() {
 		
-		if(this.nesteledig < this.innleggtabell.length)
-			return true;
-		else
-			return false;
+		return (this.nesteledig < this.innleggtabell.length);
 		
 		//throw new UnsupportedOperationException(TODO.method());
 
@@ -79,7 +74,7 @@ public class Blogg {
 	
 	public boolean leggTil(Innlegg innlegg) {
 
-		if(this.finnes(innlegg) == false && this.ledigPlass()){
+		if(!this.finnes(innlegg) && this.ledigPlass()){
 			
 			this.innleggtabell[this.nesteledig++] = innlegg;
 			
@@ -111,7 +106,7 @@ public class Blogg {
 	// valgfrie oppgaver nedenfor
 	
 	public void utvid() {
-		Innlegg[] utvidatabell = new Innlegg[this.innleggtabell.length*2];
+		Innlegg[] utvidatabell = new Innlegg[2*this.innleggtabell.length];
 		
 		for(int i = 0; i < this.nesteledig; ++i) {
 			utvidatabell[i] = this.innleggtabell[i];
@@ -126,7 +121,7 @@ public class Blogg {
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
 
-		if(this.finnes(innlegg) == false){
+		if(!this.finnes(innlegg)){
 			if(!this.ledigPlass()) {
 				this.utvid();
 			}
